@@ -3,50 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <title>Self-Care Toolkit</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div class="container">
-    <h1>AI Self-Care Toolkit</h1>
-    <form id="toolkit-form">
-      <label>What are you struggling with?</label>
-      <input type="text" id="struggle" required>
+    <!-- Welcome Page -->
+    <div id="welcome-page" class="quiz-page active">
+      <h1>🧘‍♀️ Self-Care Toolkit</h1>
+      <p class="welcome-text">Get personalized self-care recommendations tailored just for you. Answer a few quick questions and we'll create your custom wellness toolkit.</p>
+      <button id="start-quiz" class="primary-button">Get Started</button>
+    </div>
 
-      <label>What is your current mood?</label>
-      <input type="text" id="mood" required>
-
-      <label>What are you looking for?</label>
-      <select id="focus">
-        <option>immediate actions</option>
-        <option>short-term practices</option>
-        <option>long-term habits</option>
-      </select>
-
-      <label>Coping Preferences:</label>
-      <div id="preferences">
-        <input type="checkbox" value="quiet"> Quiet
-        <input type="checkbox" value="creative"> Creative
-        <input type="checkbox" value="active"> Active
-        <input type="checkbox" value="social"> Social
-        <input type="checkbox" value="reflective"> Reflective
-        <input type="checkbox" value="sensory"> Sensory
+    <!-- Quiz Questions -->
+    <div id="quiz-container" class="quiz-page">
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="progress-text" id="progress-text">Question 1 of 5</span>
       </div>
 
-      <label>Energy Level:</label>
-      <select id="energy">
-        <option>low</option>
-        <option>medium</option>
-        <option>high</option>
-      </select>
+      <!-- Question 1: Struggle -->
+      <div class="question-page active" data-question="1">
+        <h2>What are you struggling with right now?</h2>
+        <p class="question-subtitle">This helps us understand what you need support with.</p>
+        <input type="text" id="struggle" placeholder="e.g., stress, anxiety, feeling overwhelmed..." required>
+        <button class="next-button" onclick="nextQuestion()">Next</button>
+      </div>
 
-      <button type="submit">Generate Toolkit</button>
-    </form>
+      <!-- Question 2: Mood -->
+      <div class="question-page" data-question="2">
+        <h2>How are you feeling right now?</h2>
+        <p class="question-subtitle">Your current mood helps us suggest appropriate activities.</p>
+        <input type="text" id="mood" placeholder="e.g., anxious, sad, frustrated, tired..." required>
+        <div class="button-group">
+          <button class="back-button" onclick="prevQuestion()">Back</button>
+          <button class="next-button" onclick="nextQuestion()">Next</button>
+        </div>
+      </div>
 
-    <p class="disclaimer">
-      This is general wellness guidance, not medical advice. If you’re in crisis, contact campus counseling or emergency services.
-    </p>
+      <!-- Question 3: Focus -->
+      <div class="question-page" data-question="3">
+        <h2>What kind of support are you looking for?</h2>
+        <p class="question-subtitle">Choose what fits your current needs.</p>
+        <div class="option-group">
+          <label class="option-card">
+            <input type="radio" name="focus" value="immediate actions">
+            <div class="option-content">
+              <strong>Immediate Actions</strong>
+              <p>Quick things I can do right now</p>
+            </div>
+          </label>
+          <label class="option-card">
+            <input type="radio" name="focus" value="short-term practices">
+            <div class="option-content">
+              <strong>Short-term Practices</strong>
+              <p>Activities for the next few days</p>
+            </div>
+          </label>
+          <label class="option-card">
+            <input type="radio" name="focus" value="long-term habits">
+            <div class="option-content">
+              <strong>Long-term Habits</strong>
+              <p>Building lasting wellness routines</p>
+            </div>
+          </label>
+        </div>
+        <div class="button-group">
+          <button class="back-button" onclick="prevQuestion()">Back</button>
+          <button class="next-button" onclick="nextQuestion()">Next</button>
+        </div>
+      </div>
 
+      <!-- Question 4: Coping Preferences -->
+      <div class="question-page" data-question="4">
+        <h2>What types of activities help you feel better?</h2>
+        <p class="question-subtitle">Select all that apply - this helps us personalize your toolkit.</p>
+        <div class="checkbox-group">
+          <label class="checkbox-card">
+            <input type="checkbox" value="quiet">
+            <span class="checkbox-text">Quiet activities</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" value="creative">
+            <span class="checkbox-text">Creative activities</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" value="active">
+            <span class="checkbox-text">Active/movement</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" value="social">
+            <span class="checkbox-text">Social connection</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" value="reflective">
+            <span class="checkbox-text">Reflective/journaling</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" value="sensory">
+            <span class="checkbox-text">Sensory experiences</span>
+          </label>
+        </div>
+        <div class="button-group">
+          <button class="back-button" onclick="prevQuestion()">Back</button>
+          <button class="next-button" onclick="nextQuestion()">Next</button>
+        </div>
+      </div>
+
+      <!-- Question 5: Energy Level -->
+      <div class="question-page" data-question="5">
+        <h2>How much energy do you have right now?</h2>
+        <p class="question-subtitle">This helps us suggest activities that match your current capacity.</p>
+        <div class="option-group">
+          <label class="option-card">
+            <input type="radio" name="energy" value="low">
+            <div class="option-content">
+              <strong>Low Energy</strong>
+              <p>I need gentle, low-effort activities</p>
+            </div>
+          </label>
+          <label class="option-card">
+            <input type="radio" name="energy" value="medium">
+            <div class="option-content">
+              <strong>Medium Energy</strong>
+              <p>I can handle moderate activities</p>
+            </div>
+          </label>
+          <label class="option-card">
+            <input type="radio" name="energy" value="high">
+            <div class="option-content">
+              <strong>High Energy</strong>
+              <p>I'm ready for more active approaches</p>
+            </div>
+          </label>
+        </div>
+        <div class="button-group">
+          <button class="back-button" onclick="prevQuestion()">Back</button>
+          <button class="next-button" onclick="generateToolkit()">Generate My Toolkit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Generating your personalized toolkit<span class="loading-dots"></span></div>
+    </div>
+
+    <!-- Results -->
     <div id="results"></div>
+
+    <!-- Disclaimer -->
+    <p class="disclaimer">
+      This is general wellness guidance, not medical advice. If you're in crisis, contact campus counseling or emergency services.
+    </p>
   </div>
   <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
