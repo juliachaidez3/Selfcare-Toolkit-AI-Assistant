@@ -1,0 +1,9 @@
+body { font-family: sans-serif; background: #fafafa; color: #222; }
+.container { max-width: 700px; margin: 40px auto; background: white; padding: 20px; border-radius: 10px; }
+label { display: block; margin-top: 12px; font-weight: 600; }
+input, select { width: 100%; padding: 8px; margin-top: 5px; }
+button { margin-top: 20px; padding: 10px 15px; background: #0077ff; color: white; border: none; border-radius: 5px; }
+.card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-top: 12px; background: #f9f9ff; }
+.meta { font-size: 0.9em; color: #555; margin-top: 6px; }
+.disclaimer { font-size: 0.85em; color: #666; margin-top: 10px; }
+.alert { padding: 10px; background: #ffeaea; border: 1px solid #ff8888; border-radius: 6px; margin-top: 10px; }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Self-Care Toolkit</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>AI Self-Care Toolkit</h1>
+    <form id="toolkit-form">
+      <label>What are you struggling with?</label>
+      <input type="text" id="struggle" required>
+
+      <label>What is your current mood?</label>
+      <input type="text" id="mood" required>
+
+      <label>What are you looking for?</label>
+      <select id="focus">
+        <option>immediate actions</option>
+        <option>short-term practices</option>
+        <option>long-term habits</option>
+      </select>
+
+      <label>Coping Preferences:</label>
+      <div id="preferences">
+        <input type="checkbox" value="quiet"> Quiet
+        <input type="checkbox" value="creative"> Creative
+        <input type="checkbox" value="active"> Active
+        <input type="checkbox" value="social"> Social
+        <input type="checkbox" value="reflective"> Reflective
+        <input type="checkbox" value="sensory"> Sensory
+      </div>
+
+      <label>Energy Level:</label>
+      <select id="energy">
+        <option>low</option>
+        <option>medium</option>
+        <option>high</option>
+      </select>
+
+      <button type="submit">Generate Toolkit</button>
+    </form>
+
+    <p class="disclaimer">
+      This is general wellness guidance, not medical advice. If you’re in crisis, contact campus counseling or emergency services.
+    </p>
+
+    <div id="results"></div>
+  </div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
