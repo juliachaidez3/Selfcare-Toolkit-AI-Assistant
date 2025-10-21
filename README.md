@@ -1,10 +1,10 @@
-# 🧘Self-Care Toolkit AI Assistant
+# Self-Care Toolkit AI Assistant
 
 A personalized self-care recommendation web application that uses AI to generate customized wellness activities based on your current mood, struggles, and preferences.
 
-##Deployed Website:
+##Deployed Website: WIP
 
-##Video Demo Link:
+## Video Demo Link: [Watch Demo](https://youtu.be/oU_kKhy45Xg)
 
 ## Features
 
@@ -31,13 +31,12 @@ A personalized self-care recommendation web application that uses AI to generate
    - Step-by-step instructions
    - Time estimate and difficulty level
 
-## 🛠️ Technical Stack
+## Technical Stack
 
 - **Backend**: Python Flask
 - **AI Integration**: OpenAI GPT-5-nano API
 - **Frontend**: HTML5, CSS3, JavaScript
 - **Styling**: Custom CSS with Flexbox and responsive design
 - **Environment Management**: python-dotenv
-```
 
 **Made with ❤️ for better mental health and self-care**
