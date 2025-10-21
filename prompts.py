@@ -10,16 +10,27 @@ I am looking for {focus}.
 My coping preferences are {coping_preferences}.
 My energy level is {energy_level}.
 
-Build me a personalized self-care toolkit with 2-3 actionable ideas that are realistic, fit my energy level, and align with my coping preferences. 
+Build me a personalized self-care toolkit with 2-3 actionable ideas that are realistic, fit my energy level, and align with my coping preferences.
 
-Return results as structured JSON:
-[
-  {{
-    "title": "string",
-    "why_it_helps": "string",
-    "steps": ["string", "string", "string"],
-    "time_estimate": "string",
-    "difficulty": "Easy" or "Medium"
-  }}
-]
+Return your response as a JSON object with a "recommendations" key containing an array of activities.
+
+Format:
+{{
+  "recommendations": [
+    {{
+      "title": "Activity Name",
+      "why_it_helps": "Explanation of benefits",
+      "steps": ["Step 1", "Step 2", "Step 3"],
+      "time_estimate": "X minutes",
+      "difficulty": "Easy"
+    }},
+    {{
+      "title": "Another Activity",
+      "why_it_helps": "Why this helps",
+      "steps": ["Step 1", "Step 2"],
+      "time_estimate": "Y minutes", 
+      "difficulty": "Medium"
+    }}
+  ]
+}}
 """

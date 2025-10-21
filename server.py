@@ -34,26 +34,44 @@ def toolkit():
         )
 
         output = response.choices[0].message.content or "{}"
-        import json
-        parsed_output = json.loads(output)
         
-        # Handle different response structures
-        if isinstance(parsed_output, dict):
-            if "self_care_toolkit" in parsed_output:
-                # If response has self_care_toolkit wrapper, extract the array
-                return jsonify({"items": parsed_output["self_care_toolkit"]})
-            elif "toolkit" in parsed_output:
-                # If response has toolkit wrapper, extract the array
-                return jsonify({"items": parsed_output["toolkit"]})
-            else:
-                # If it's a dict but no known wrapper, return as is
-                return jsonify(parsed_output)
-        elif isinstance(parsed_output, list):
-            # If response is already an array, wrap it in items
-            return jsonify({"items": parsed_output})
+        # Debug: Print raw AI response
+        print(f"Raw AI response: {output}")
+        
+        # Check for common error messages
+        if "This response contains JSON" in output or "structured format" in output or "must be a JSON array" in output:
+            return jsonify({"error": "AI returned format message instead of JSON. Please try again."}), 500
+        
+        import json
+        try:
+            parsed_output = json.loads(output)
+            print(f"Parsed output: {parsed_output}")
+        except json.JSONDecodeError as e:
+            print(f"JSON parsing error: {e}")
+            print(f"Raw output: {output}")
+            return jsonify({"error": "Invalid JSON response from AI. Please try again."}), 500
+        
+        # Streamlined JSON handling - look for any array in the response
+        recommendations = []
+        
+        if isinstance(parsed_output, list):
+            # Direct array response
+            recommendations = parsed_output
+        elif isinstance(parsed_output, dict):
+            # Look for any array property
+            for key, value in parsed_output.items():
+                if isinstance(value, list) and len(value) > 0:
+                    recommendations = value
+                    break
+            
+            # Check for null/empty responses
+            if not recommendations and any(v is None for v in parsed_output.values()):
+                return jsonify({"error": "AI returned null/empty response. Please try again."}), 500
+        
+        if recommendations:
+            return jsonify({"items": recommendations})
         else:
-            # Fallback to original structure
-            return jsonify(parsed_output)
+            return jsonify({"error": "No valid recommendations found in AI response. Please try again."}), 500
     
     except Exception as e:
         print(f"Error: {e}")  # For debugging
