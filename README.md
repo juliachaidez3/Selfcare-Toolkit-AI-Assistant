@@ -2,9 +2,9 @@
 
 A personalized self-care recommendation web application that uses AI to generate customized wellness activities based on your current mood, struggles, and preferences.
 
-##Deployed Website: WIP
+## Deployed Website: [Click Here](https://selfcare-toolkit-ai-assistant.vercel.app/)
 
-## Video Demo Link: [Watch Demo](https://youtu.be/oU_kKhy45Xg)
+## Video Demo: [Watch Demo](https://youtu.be/oU_kKhy45Xg)
 
 ## Features
 
